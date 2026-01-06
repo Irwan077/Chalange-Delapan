@@ -1,8 +1,25 @@
+<?php
+require 'db/connection.php';
+
+$query = "SELECT * FROM students";
+$result = mysqli_query($conn, $query);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo "<p>";
+    echo $row['name'] . " - " . $row['email'] . " ";
+    echo " <a href='edit.php?id={$row['id']}'>Edit</a>";
+    echo " | ";
+    echo "<a href='delete.php?id={$row['id']}' onclick='return confirm(\'Yakin hapus?\')'>Hapus</a>";
+    echo "</p>";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Form Validasi Keren</title>
+    <title>Belajar Database</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +64,7 @@
 <div class="container">
     <h2>Form Validasi</h2>
 
-    <form action="server.php" method="POST">
+    <form action="create.php" method="POST">
         <label>Nama</label>
         <input type="text" name="nama" placeholder="Masukkan nama">
 
@@ -55,9 +72,9 @@
         <input type="text" name="email" placeholder="contoh@gmail.com">
 
         <label>Umur</label>
-        <input type="text" name="umur" placeholder="Contoh: 18">
+        <input type="number" name="umur" placeholder="Contoh: 18">
 
-        <button type="submit">Kirim Data</button>
+        <button type="submit">Simpan</button>
     </form>
 </div>
 

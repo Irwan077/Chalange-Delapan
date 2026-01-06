@@ -9,21 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Ambil data
 $nama  = trim($_POST['nama'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $umur  = trim($_POST['umur'] ?? '');
 
 $errors = [];
 
-// Validasi nama
 if ($nama === '') {
     $errors[] = "Nama tidak boleh kosong";
 } elseif (strlen($nama) < 3) {
     $errors[] = "Nama minimal 3 karakter";
 }
 
-// Validasi email Gmail
 if ($email === '') {
     $errors[] = "Email wajib diisi";
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -32,7 +29,6 @@ if ($email === '') {
     $errors[] = "Email harus menggunakan @gmail.com";
 }
 
-// Validasi umur
 if ($umur === '') {
     $errors[] = "Umur wajib diisi";
 } elseif (!ctype_digit($umur)) {
@@ -41,7 +37,6 @@ if ($umur === '') {
     $errors[] = "Umur harus antara 10–100 tahun";
 }
 
-// Jika error
 if (!empty($errors)) {
     echo json_encode([
         "status" => "error",
@@ -50,7 +45,6 @@ if (!empty($errors)) {
     exit;
 }
 
-// Jika sukses
 echo json_encode([
     "status" => "success",
     "message" => "Data valid",

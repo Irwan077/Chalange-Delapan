@@ -3,25 +3,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die("Akses tidak valid ❌");
 }
 
-// Ambil & bersihkan data
 $nama  = htmlspecialchars(trim($_POST['nama'] ?? ''));
 $email = htmlspecialchars(trim($_POST['email'] ?? ''));
 $umur  = htmlspecialchars(trim($_POST['umur'] ?? ''));
 
 $errors = [];
 
-/* =====================
-   VALIDASI SERVER
-   ===================== */
-
-// Nama: minimal 3 huruf
 if ($nama === '') {
     $errors[] = "Nama tidak boleh kosong";
 } elseif (strlen($nama) < 3) {
     $errors[] = "Nama minimal 3 karakter";
 }
 
-// Email: wajib gmail
 if ($email === '') {
     $errors[] = "Email wajib diisi";
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -30,7 +23,6 @@ if ($email === '') {
     $errors[] = "Email harus menggunakan @gmail.com";
 }
 
-// Umur: angka 10–100
 if ($umur === '') {
     $errors[] = "Umur wajib diisi";
 } elseif (!ctype_digit($umur)) {
@@ -38,10 +30,6 @@ if ($umur === '') {
 } elseif ($umur < 10 || $umur > 100) {
     $errors[] = "Umur harus antara 10 - 100 tahun";
 }
-
-/* =====================
-   TAMPILKAN HASIL
-   ===================== */
 
 echo "<style>
 body { font-family: Arial; background:#f4f6f8; }
